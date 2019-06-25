@@ -35,10 +35,5 @@ mybatis:
   configuration:
     log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
     map-underscore-to-camel-case: true
-#wechat:
-#  mp:
-#    appId: wxc8d1636b477c003d
-#    secret: e79d2dc534aaefa1f0e73887fbcc6167
-#    token: goods
-#    aesKey:
+
 
