@@ -1,1 +1,44 @@
+spring:
+  datasource:
+    username: root
+    password: 123admin
+    url: jdbc:mysql://127.0.0.1:3306/clinic?useUnicode=true&characterEncoding=UTF-8&useSSL=false&allowMultiQueries=true
+    driver-class-name: com.mysql.jdbc.Driver
+  jpa:
+    show-sql: true
+  devtools:
+    restart:
+      enabled: true
+      additional-paths: src/main/java
+      exclude: mapper
+  http:
+    encoding:
+      enabled: true
+      charset: UTF-8
+      force: true
+  jmx:
+    enabled: false
+
+server:
+  port: 8080
+  #  servlet:
+  #    context-path: /cater
+
+  tomcat:
+    uri-encoding: UTF-8
+pagehelper:
+  helper-dialect: mysql
+  support-methods-arguments: true
+  params: count=countSql
+mybatis:
+  mapper-locations:  classpath:mapper/*.xml
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+    map-underscore-to-camel-case: true
+#wechat:
+#  mp:
+#    appId: wxc8d1636b477c003d
+#    secret: e79d2dc534aaefa1f0e73887fbcc6167
+#    token: goods
+#    aesKey:
 
