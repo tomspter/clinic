@@ -1,10 +1,13 @@
 spring:
   datasource:
-    username: root
-    password: 123admin
-    url: jdbc:mysql://127.0.0.1:3306/clinic?useUnicode=true&characterEncoding=utf8&useSSL=false&serverTimezone=UTC&zeroDateTimeBehavior=convertToNull
+  
+ url: jdbc:mysql://localhost:3306/clinic?&useUnicode=true&characterEncoding=utf-8&useLegacyDatetimeCode=false&serverTimezone=GMT%2b8
     driver-class-name: com.mysql.cj.jdbc.Driver
+    hikari:
+      username: root
+      password: 123admin
   jpa:
+    database-platform: org.hibernate.dialect.MySQLDialect
     show-sql: true
   devtools:
     restart:
@@ -32,14 +35,5 @@ server:
 
   tomcat:
     uri-encoding: UTF-8
-#pagehelper:
-#  helper-dialect: mysql
-#  support-methods-arguments: true
-#  params: count=countSql
-#mybatis:
-#  mapper-locations:  classpath:mapper/*.xml
-#  configuration:
-#    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
-#    map-underscore-to-camel-case: true
 
 
