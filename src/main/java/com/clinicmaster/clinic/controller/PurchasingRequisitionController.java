@@ -3,6 +3,7 @@ package com.clinicmaster.clinic.controller;
 import com.clinicmaster.clinic.constant.UnifyReponse;
 import com.clinicmaster.clinic.domain.PurchasingRequisition;
 import com.clinicmaster.clinic.repository.PurchasingRequisitionRepository;
+import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -25,6 +26,7 @@ public class PurchasingRequisitionController {
     @Autowired
     private PurchasingRequisitionRepository purchasingRequisitionRepository;
 
+    @ApiOperation("写入采购申请")
     @PostMapping("/clinic/writePurchasing")
     public UnifyReponse writePurchasing(@RequestParam("medicine_id") Integer medicineId,
                                         @RequestParam("num") Integer num,
@@ -49,6 +51,7 @@ public class PurchasingRequisitionController {
     }
 
 
+    @ApiOperation("查询采购申请")
     @GetMapping("clinic/getPurchasing")
     public UnifyReponse getPurchasing(@RequestParam(value = "page",defaultValue = "1") int page,
                                       @RequestParam(value = "sort",defaultValue = "asc") String sort,
@@ -59,6 +62,7 @@ public class PurchasingRequisitionController {
 
     }
 
+    @ApiOperation("修改采购申请")
     @PostMapping("/modifyPurchasing")
     public UnifyReponse modifyPurchasing(@RequestParam("id") int id){
 

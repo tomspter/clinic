@@ -5,6 +5,7 @@ import com.clinicmaster.clinic.domain.CasePharmacy;
 import com.clinicmaster.clinic.domain.Doctor;
 import com.clinicmaster.clinic.repository.CasePharmacyRepository;
 import com.clinicmaster.clinic.repository.MedicineRepository;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -18,6 +19,8 @@ public class MedicineController {
     private CasePharmacyRepository casePharmacyRepository;
     @Autowired
     private MedicineRepository medicineRepository;
+
+    @ApiOperation("患者支付费用")
     @PostMapping("/patientPayment")
     public UnifyReponse patientPayment(@RequestParam("patient_id")int patientId){
         int[] resultId = casePharmacyRepository.findIdByPatientId(patientId);

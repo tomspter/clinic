@@ -10,6 +10,7 @@ import com.clinicmaster.clinic.repository.DepartmentChildRepositoryZ;
 import com.clinicmaster.clinic.repository.DepartmentParentRepositoryZ;
 import com.clinicmaster.clinic.repository.MedicineRepositoryZ;
 import com.clinicmaster.clinic.utils.ExcelUtil;
+import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -37,7 +38,7 @@ public class DoClinicExcelController {
     @Autowired
     private DepartmentChildRepositoryZ departmentChildRepositoryZ;
 
-
+    @ApiOperation("上传员工Excel")
     @PostMapping("/clinic/importExcel/clinicStaffExcel")
     public UnifyReponse doClinicStaffExcel(@RequestParam("excel_path") MultipartFile file) throws IOException {
 
@@ -59,6 +60,7 @@ public class DoClinicExcelController {
     }
 
 
+    @ApiOperation("上传药品Excel")
     @PostMapping("/clinic/importExcel/medicineExcel")
     public UnifyReponse doMedicineExcel(@RequestParam("excel_path") MultipartFile file) throws IOException {
 
@@ -79,6 +81,7 @@ public class DoClinicExcelController {
         return new UnifyReponse(1, "success");
     }
 
+    @ApiOperation("上传部门Excel")
     @PostMapping("/clinic/importExcel/departmentExcel")
     public UnifyReponse doDepartmentExcel(@RequestParam("excel_parent_path") MultipartFile parentfile,
                                           @RequestParam("excel_child_path") MultipartFile childfile) throws IOException {

@@ -5,6 +5,7 @@ import com.clinicmaster.clinic.domain.Doctor;
 import com.clinicmaster.clinic.domain.DoctorVisittime;
 import com.clinicmaster.clinic.repository.DoctorRepository;
 import com.clinicmaster.clinic.repository.DoctorVisitTimeRepository;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -23,6 +24,8 @@ public class DoctorController {
     private DoctorRepository doctorRepository;
     @Autowired
     private DoctorVisitTimeRepository doctorVisitTimeRepository;
+
+    @ApiOperation("获取医生基本信息")
     @PostMapping("/findDoctor")
     public UnifyReponse findDoctor(@RequestParam("page")int pageNum, @RequestParam("rows")int pageLimit,
                                    @RequestParam("sort")String sort, @RequestParam("department_id") int departmentId){
@@ -36,6 +39,8 @@ public class DoctorController {
         }
         return response;
     }
+
+    @ApiOperation("获取医生出诊时间")
     @PostMapping("/findDoctorVisitTime")
     public UnifyReponse findDoctorVisitTime(@RequestParam("page")int pageNum, @RequestParam("rows")int pageLimit,
                                             @RequestParam("sort")String sort, @RequestParam("doctor_id") int doctorId){

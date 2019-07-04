@@ -3,6 +3,7 @@ package com.clinicmaster.clinic.controller;
 import com.clinicmaster.clinic.constant.UnifyReponse;
 import com.clinicmaster.clinic.domain.*;
 import com.clinicmaster.clinic.repository.*;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -30,6 +31,7 @@ public class DepartmentController {
     @Autowired
     private RegisterRepository registerRepository;
 
+    @ApiOperation("获取科室信息")
     @PostMapping("/findDepartment")     //获取科室信息
     public UnifyReponse findDepartment(@RequestParam("page")int pageNum, @RequestParam("rows")int pageLimit,
                                        @RequestParam("sort")String sort){
@@ -56,6 +58,7 @@ public class DepartmentController {
         return response;
     }
 
+    @ApiOperation("查看诊室状态")
     @PostMapping("/showConsulting")     //查看诊室状态
     public UnifyReponse showConsulting(@RequestParam("departmentchild_id")int departmentchildId){
         UnifyReponse<List<Department>> response = new UnifyReponse<>();

@@ -6,6 +6,7 @@ import com.clinicmaster.clinic.repository.CasePharmacyRepositoryZ;
 import com.clinicmaster.clinic.repository.CaseTransfusionRepository;
 import com.clinicmaster.clinic.repository.MedicineRepositoryZ;
 import com.clinicmaster.clinic.service.CaseService;
+import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -32,6 +33,7 @@ public class CaseController {
     private MedicineRepositoryZ medicineRepositoryZ;
 
 
+    @ApiOperation("写入取药病历")
     @PostMapping("/clinic/writeCasePharmacy")
     public UnifyReponse writeCase(@RequestParam("patient_id") String patientId,
                                   @RequestParam("medicine_id") Integer medicineId,
@@ -51,6 +53,7 @@ public class CaseController {
 
     }
 
+    @ApiOperation("查找取药病历")
     @PostMapping("/clinic/getCaseForPharmacy")
     public UnifyReponse getCaseForPharmacy(){
 
