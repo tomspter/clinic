@@ -14,8 +14,8 @@ import javax.persistence.Id;
 public class Register {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
-    private int patientId;
+    private String id;
+    private String patientId;
     private int departmentchildId;
     private int registerTime;
     private int registerStatus;

@@ -19,11 +19,10 @@ import java.sql.Timestamp;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class DoctorVisittime {
+public class DoctorVisitTime {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
-    private String name;
+    private String id;
     private int doctorId;
     @JsonFormat(pattern="yyyy-MM-dd hh:MM:ss",timezone="GMT+8")
     private Timestamp visitTime;

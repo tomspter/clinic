@@ -18,4 +18,5 @@ public class DepartmentChild {
     private int parentId;
     private String childName;
     private int doctorId;
+    private int count;
 }
