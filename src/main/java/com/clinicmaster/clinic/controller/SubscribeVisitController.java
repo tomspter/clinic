@@ -5,6 +5,7 @@ import com.clinicmaster.clinic.domain.DoctorVisitTime;
 import com.clinicmaster.clinic.repository.DoctorRepository;
 import com.clinicmaster.clinic.repository.DoctorVisitTimeRepository;
 import com.clinicmaster.clinic.repository.RegisterRepository;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -21,6 +22,7 @@ public class SubscribeVisitController {
     @Autowired
     private RegisterRepository registerRepository;
 
+    @ApiOperation("预约就诊")
     @PostMapping("/subscribeVisitTime")     //预约就诊
     public UnifyReponse subscribeVisitTime(@RequestParam("visittime_id")int visittimeId, @RequestParam("register_id")int registerId){
         int result = doctorVisitTimeRepository.findAmountById(visittimeId);     //查询余量
@@ -36,6 +38,8 @@ public class SubscribeVisitController {
         }
         return response;
     }
+
+    @ApiOperation("取消预约就诊")
     @PostMapping("/unSubscribeVisitTime")
     public UnifyReponse unSubscribeVisitTime(@RequestParam("register_id")int registerId){
         int visittimeId =registerRepository.findVisittimeId(registerId);        //根据预约的uuid查询visittimeid

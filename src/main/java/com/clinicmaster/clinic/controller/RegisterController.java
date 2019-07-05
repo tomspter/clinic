@@ -8,6 +8,7 @@ import com.clinicmaster.clinic.repository.AppointmentRepository;
 import com.clinicmaster.clinic.repository.DepartmentChildRepositoryZ;
 import com.clinicmaster.clinic.repository.PatientRepositoryZ;
 import com.clinicmaster.clinic.repository.RegisterRepositoryZ;
+import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.StringRedisTemplate;
@@ -37,6 +38,7 @@ public class RegisterController {
     private PatientRepositoryZ patientRepositoryZ;
 
 
+    @ApiOperation("患者登记")
     @PostMapping("/clinic/register")
     public UnifyReponse doRegister(@RequestParam("patient_id") String patientId,
                                    @RequestParam("doctor_id") Integer doctorId){
@@ -81,6 +83,7 @@ public class RegisterController {
     }
 
 
+    @ApiOperation("查找登记队列")
     @PostMapping("/clinic/findRegisterQueue")
     public UnifyReponse findRegisterQueue(){
 
