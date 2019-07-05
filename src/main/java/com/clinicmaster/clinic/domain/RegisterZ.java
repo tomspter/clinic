@@ -1,8 +1,8 @@
 package com.clinicmaster.clinic.domain;
 
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
-import lombok.RequiredArgsConstructor;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -11,7 +11,7 @@ import java.sql.Timestamp;
 @Data
 @Entity
 @Builder
-@RequiredArgsConstructor
+@AllArgsConstructor
 public class RegisterZ {
 
     @Id

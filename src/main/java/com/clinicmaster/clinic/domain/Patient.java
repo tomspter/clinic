@@ -14,6 +14,6 @@ import javax.persistence.Id;
 public class Patient {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private String id;
     private String name;
 }

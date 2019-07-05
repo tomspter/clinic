@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import javax.print.Doc;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -30,7 +29,7 @@ public class DepartmentController {
     @Autowired
     private RegisterRepository registerRepository;
 
-    @PostMapping("/findDepartment")     //获取科室信息
+    @PostMapping("/patient/findDepartment")     //获取科室信息
     public UnifyReponse findDepartment(@RequestParam("page")int pageNum, @RequestParam("rows")int pageLimit,
                                        @RequestParam("sort")String sort){
         Pageable pageable = PageRequest.of(pageNum - 1, pageLimit, Sort.Direction.ASC, sort);
@@ -56,7 +55,7 @@ public class DepartmentController {
         return response;
     }
 
-    @PostMapping("/showConsulting")     //查看诊室状态
+    @PostMapping("/patient/showConsulting")     //查看诊室状态
     public UnifyReponse showConsulting(@RequestParam("departmentchild_id")int departmentchildId){
         UnifyReponse<List<Department>> response = new UnifyReponse<>();
         List<ConsultingDoctor> consultingDoctors = new ArrayList<>();       //最终返回的数据
@@ -66,11 +65,11 @@ public class DepartmentController {
             int doctorId = doctor.getId();
             consultingDoctor.setDoctorId(doctorId);     //设置doctorId
             consultingDoctor.setName(doctor.getName());     //设置name
-            List<DoctorVisittime> doctorVisittimes = doctorVisitTimeRepository.findAllByDoctorId(doctorId);     //通过doctorId查找所有预约情况
+            List<DoctorVisitTime> doctorVisitTimes = doctorVisitTimeRepository.findAllByDoctorId(doctorId);     //通过doctorId查找所有预约情况
             List<RegisterConsulting> registerConsultings = new ArrayList<>();       //包含所有病人的list
-            for(DoctorVisittime doctorVisittime : doctorVisittimes){        //对每一个预约进行处理
-                int visittimeId = doctorVisittime.getId();
-                int[] patientId = registerRepository.findPatientId(visittimeId);        //通过预约id查找所有预约的病人的id
+            for(DoctorVisitTime doctorVisittime : doctorVisitTimes){        //对每一个预约进行处理
+                String visitTimeId = doctorVisittime.getId();
+                int[] patientId = registerRepository.findPatientId(visitTimeId);        //通过预约id查找所有预约的病人的id
                 for(int id : patientId){        //对每一个病人进行处理
                     RegisterConsulting registerConsulting = new RegisterConsulting();       //包含单个病人信息的实体类
                     String patientName = patientRepository.findName(id);

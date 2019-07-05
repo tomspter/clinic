@@ -18,7 +18,7 @@ public class ClinicMessageController {
     @Autowired
     private ClinicMessageRepository clinicMessageRepository;
 
-    @PostMapping("/findClinicInfo")     //获取医院详细信息
+    @PostMapping("/patient/findClinicInfo")     //获取医院详细信息
     public UnifyReponse findClinicInfo(@RequestParam("page")int pageNum, @RequestParam("rows")int pageLimit,
                                                 @RequestParam("sort")String sort){
         Pageable pageable = PageRequest.of(pageNum - 1, pageLimit, Sort.Direction.ASC, sort);

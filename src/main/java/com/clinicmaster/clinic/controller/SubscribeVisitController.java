@@ -1,9 +1,7 @@
 package com.clinicmaster.clinic.controller;
 
-import ch.qos.logback.core.net.SyslogOutputStream;
 import com.clinicmaster.clinic.constant.UnifyReponse;
-import com.clinicmaster.clinic.domain.DoctorVisittime;
-import com.clinicmaster.clinic.domain.Register;
+import com.clinicmaster.clinic.domain.DoctorVisitTime;
 import com.clinicmaster.clinic.repository.DoctorRepository;
 import com.clinicmaster.clinic.repository.DoctorVisitTimeRepository;
 import com.clinicmaster.clinic.repository.RegisterRepository;
@@ -26,7 +24,7 @@ public class SubscribeVisitController {
     @PostMapping("/subscribeVisitTime")     //预约就诊
     public UnifyReponse subscribeVisitTime(@RequestParam("visittime_id")int visittimeId, @RequestParam("register_id")int registerId){
         int result = doctorVisitTimeRepository.findAmountById(visittimeId);     //查询余量
-        UnifyReponse<List<DoctorVisittime>> response = new UnifyReponse<>();
+        UnifyReponse<List<DoctorVisitTime>> response = new UnifyReponse<>();
         if(result>0){
             doctorVisitTimeRepository.updateOnStatus(visittimeId);      //doctorvisttime表中status、totalamount、amount的更改
             doctorRepository.updateTotalamount(visittimeId);        //doctor表中的totalamount更改
@@ -41,7 +39,7 @@ public class SubscribeVisitController {
     @PostMapping("/unSubscribeVisitTime")
     public UnifyReponse unSubscribeVisitTime(@RequestParam("register_id")int registerId){
         int visittimeId =registerRepository.findVisittimeId(registerId);        //根据预约的uuid查询visittimeid
-        UnifyReponse<List<DoctorVisittime>> response = new UnifyReponse<>();
+        UnifyReponse<List<DoctorVisitTime>> response = new UnifyReponse<>();
         if(visittimeId>0){
             doctorVisitTimeRepository.updateOffStatus(visittimeId);     //doctorvisittime表中status、totalamount、amount更改
             doctorRepository.updateOffAmount(visittimeId);      //doctor中totalamount更改

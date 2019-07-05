@@ -10,6 +10,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 public interface PatientRepository extends JpaRepository<Doctor, Long> {
-    @Query(value = "select name from patient where id = :id", nativeQuery = true)
+    @Query(value = "select name from patient_login where id = :id", nativeQuery = true)
      String findName(@Param("id") int id);
 }
