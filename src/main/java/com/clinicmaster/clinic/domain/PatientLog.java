@@ -11,9 +11,10 @@ import javax.persistence.Id;
 @Entity
 @Getter
 @Setter
-public class Patient {
+public class PatientLog {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private String id;
-    private String name;
+    private int id;
+    private String patient_id;
+    private String login_time;
 }

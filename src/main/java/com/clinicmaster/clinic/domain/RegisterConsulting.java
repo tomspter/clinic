@@ -6,6 +6,6 @@ import lombok.Setter;
 @Getter
 @Setter
 public class RegisterConsulting {
-    private int registerId;
+    private String registerId;
     private String patientName;
 }

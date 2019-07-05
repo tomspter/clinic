@@ -18,7 +18,7 @@ public interface RegisterRepository extends JpaRepository<Register, Long> {
 
 
     @Query(value = "select patient_id from register where visit_time_id = :visitTimeId", nativeQuery = true)
-    int[] findPatientId(@Param("visitTimeId") String visitTimeId);
+    String[] findPatientId(@Param("visitTimeId") String visitTimeId);
 
     @Transactional
     @Modifying(clearAutomatically = true)
