@@ -1,6 +1,7 @@
 package com.clinicmaster.clinic.repository;
 
 import com.clinicmaster.clinic.domain.Register;
+import com.microsoft.schemas.office.office.STInsetMode;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
@@ -11,10 +12,10 @@ public interface RegisterRepository extends JpaRepository<Register, Long> {
     @Transactional
     @Modifying(clearAutomatically = true)
     @Query("update Register r set r.registerStatus = 1 where r.id = ?1")
-    int updateOnStatus(int registerId);
+    int updateOnStatus(String registerId);
 
-    @Query(value = "select visittime_id from register where id = :registerId", nativeQuery = true)
-    int findVisittimeId(@Param("registerId") int registerId);
+    @Query(value = "select visit_time_id from register where id = :registerId", nativeQuery = true)
+    String findVisittimeId(@Param("registerId") String registerId);
 
 
     @Query(value = "select patient_id from register where visit_time_id = :visitTimeId", nativeQuery = true)
@@ -23,5 +24,5 @@ public interface RegisterRepository extends JpaRepository<Register, Long> {
     @Transactional
     @Modifying(clearAutomatically = true)
     @Query("update Register r set r.registerStatus = 0 where r.id = ?1")
-    int updateOffStatus(int registerId);
+    int updateOffStatus(String registerId);
 }

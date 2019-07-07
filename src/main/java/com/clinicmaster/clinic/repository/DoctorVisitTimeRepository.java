@@ -15,21 +15,24 @@ public interface DoctorVisitTimeRepository extends JpaRepository<DoctorVisitTime
             "doctor d where dv.doctor_id=:doctorId and d.id = :doctorId",nativeQuery = true)
     List<DoctorVisitTime> findAllByDoctorId(@Param("doctorId") int doctorId);
 
-    @Query(value="select amount from doctor_visit_time where id = :doctorId",nativeQuery = true)
-    int findAmountById(@Param("doctorId") int doctorId);
+    @Query(value="select amount from doctor_visit_time where id = :visittimeId",nativeQuery = true)
+    int findAmountById(@Param("visittimeId") String visittimeId);
     @Transactional
     @Modifying(clearAutomatically = true)
     @Query("update DoctorVisitTime dv set dv.status = 1,dv.totalAmount = totalAmount+1, dv.amount = amount-1 where dv.id = ?1")
-    int updateOnStatus(int visittimeId);
+    int updateOnStatus(String visittimeId);
 
     @Transactional
     @Modifying(clearAutomatically = true)
     @Query("update DoctorVisitTime set status = 0 where id = ?1")
-    int updateOnStatusF(int visittimeId);
+    int updateOnStatusF(String visittimeId);
 
     @Transactional
     @Modifying(clearAutomatically = true)
     @Query("update DoctorVisitTime dv set dv.totalAmount = totalAmount-1, dv.amount = amount+1 where dv.id = ?1")
-    int updateOffStatus(int visittimeId);
+    int updateOffStatus(String visittimeId);
+
+    @Query(value="select doctor_id from doctor_visit_time where id = :visittimeId",nativeQuery = true)
+    int findById(@Param("visittimeId") String visittimeId);
 
 }

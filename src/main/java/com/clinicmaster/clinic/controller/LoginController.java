@@ -1,5 +1,6 @@
 package com.clinicmaster.clinic.controller;
 
+import ch.qos.logback.core.net.SyslogOutputStream;
 import com.clinicmaster.clinic.constant.UnifyReponse;
 import com.clinicmaster.clinic.domain.DoctorVisitTime;
 import com.clinicmaster.clinic.domain.PatientLog;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
+import java.util.UUID;
 
 @RestController
 public class LoginController {
@@ -22,7 +24,7 @@ public class LoginController {
     @Autowired
     private PatientLogRepository patientLogRepository;
     @PostMapping("/patient/login")
-    public UnifyReponse login(@RequestParam("username")String username,@RequestParam("passwd")String password
+    public UnifyReponse login(@RequestParam("username")String username,@RequestParam("password")String password
                               ){
         PatientLogin result = patientRepository.findByNameAndPasswd(username, password);
         UnifyReponse<List<DoctorVisitTime>> response = new UnifyReponse<>();
@@ -35,14 +37,26 @@ public class LoginController {
             patientLog.setPatient_id(patientId);
             patientLog.setLogin_time(ctime);
             patientLogRepository.saveAndFlush(patientLog);
+            patientRepository.updateMeTime(ctime,patientId);
             response = new UnifyReponse(1, "success");
         }else{
             response = new UnifyReponse(0, "fail");
         }
         return response;
     }
-//
-//    public UnifyReponse register(){
-//
-//    }
+    @PostMapping("/patient/register")
+    public UnifyReponse register(@RequestParam("id")String id, @RequestParam("username")String name, @RequestParam("password")String password){
+        PatientLogin patientLogin = new PatientLogin();
+        patientLogin.setId(id);
+        patientLogin.setName(name);
+        patientLogin.setPasswd(password);
+        PatientLogin result = patientRepository.save(patientLogin);
+        UnifyReponse<List<DoctorVisitTime>> response = new UnifyReponse<>();
+        if(result != null) {
+            response = new UnifyReponse(1, "success");
+        }else{
+            response = new UnifyReponse(0, "fail");
+        }
+        return response;
+    }
 }

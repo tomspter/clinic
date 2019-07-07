@@ -50,7 +50,7 @@ public class DepartmentController {
         if(departments != null) {
             response = new UnifyReponse(1, "success", departments);
         }else{
-            response = new UnifyReponse(0, "faile");
+            response = new UnifyReponse(0, "fail");
         }
         return response;
     }

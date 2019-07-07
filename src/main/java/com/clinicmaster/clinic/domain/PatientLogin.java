@@ -13,11 +13,10 @@ import javax.persistence.Id;
 @Setter
 public class PatientLogin {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private String id;
     private String name;
     private String passwd;
-    private String securitycode_local;
-    private String securitycode_phone;
-    private String memory_time;
+    private String securitycodeLocal;
+    private String securitycodePhone;
+    private String memoryTime;
 }
