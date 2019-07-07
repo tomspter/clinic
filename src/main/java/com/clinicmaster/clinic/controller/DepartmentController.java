@@ -50,7 +50,7 @@ public class DepartmentController {
         if(departments != null) {
             response = new UnifyReponse(1, "success", departments);
         }else{
-            response = new UnifyReponse(0, "faile");
+            response = new UnifyReponse(0, "fail");
         }
         return response;
     }
@@ -69,8 +69,8 @@ public class DepartmentController {
             List<RegisterConsulting> registerConsultings = new ArrayList<>();       //包含所有病人的list
             for(DoctorVisitTime doctorVisittime : doctorVisitTimes){        //对每一个预约进行处理
                 String visitTimeId = doctorVisittime.getId();
-                int[] patientId = registerRepository.findPatientId(visitTimeId);        //通过预约id查找所有预约的病人的id
-                for(int id : patientId){        //对每一个病人进行处理
+                String[] patientId = registerRepository.findPatientId(visitTimeId);        //通过预约id查找所有预约的病人的id
+                for(String id : patientId){        //对每一个病人进行处理
                     RegisterConsulting registerConsulting = new RegisterConsulting();       //包含单个病人信息的实体类
                     String patientName = patientRepository.findName(id);
                     registerConsulting.setPatientName(patientName);

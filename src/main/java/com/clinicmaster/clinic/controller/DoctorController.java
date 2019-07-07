@@ -34,7 +34,7 @@ public class DoctorController {
         }
         return response;
     }
-    @PostMapping("/findDoctorVisitTime")
+    @PostMapping("/patient/findDoctorVisitTime")
     public UnifyReponse findDoctorVisitTime(@RequestParam("page")int pageNum, @RequestParam("rows")int pageLimit,
                                             @RequestParam("sort")String sort, @RequestParam("doctor_id") int doctorId){
         Pageable pageable = PageRequest.of(pageNum - 1, pageLimit, Sort.Direction.ASC, sort);

@@ -21,12 +21,8 @@ public class MedicineController {
     private MedicineRepository medicineRepository;
 
     @ApiOperation("患者支付费用")
-    @PostMapping("/patientPayment")
+    @PostMapping("/patient/patientPayment")
     public UnifyReponse patientPayment(@RequestParam("patient_id")int patientId){
-        int[] resultId = casePharmacyRepository.findIdByPatientId(patientId);
-        for(int id : resultId ){
-            casePharmacyRepository.updateOnStatus(patientId);
-        }
         List<CasePharmacy> casePharmacies = casePharmacyRepository.findAllByPatientId(patientId);
         for(CasePharmacy casePharmacy : casePharmacies){
             int medicineId = casePharmacy.getMedicineId();
@@ -35,6 +31,10 @@ public class MedicineController {
         }
         UnifyReponse<List<Doctor>> response = new UnifyReponse<>();
         if(casePharmacies != null) {
+            int[] resultId = casePharmacyRepository.findIdByPatientId(patientId);
+            for(int id : resultId ){
+                casePharmacyRepository.updateOnStatus(patientId);
+            }
             response = new UnifyReponse(1, "success");
         }else{
             response = new UnifyReponse(0, "faile");

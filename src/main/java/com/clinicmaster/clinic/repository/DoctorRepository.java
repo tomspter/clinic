@@ -15,11 +15,11 @@ public interface DoctorRepository extends JpaRepository<Doctor, Long> {
     @Transactional
     @Modifying
     @Query("update Doctor set totalAmount = totalAmount+1  where id = ?1")
-    int updateTotalamount(int visittimeId);
+    int updateTotalamount(int doctorId);
 
     @Transactional
     @Modifying
     @Query("update Doctor set totalAmount = totalAmount-1  where id = ?1")
-    int updateOffAmount(int visittimeId);
+    int updateOffAmount(int doctorId);
 
 }

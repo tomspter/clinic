@@ -31,14 +31,14 @@ public class ClinicMessageController {
         }
         return response;
     }
-    @PostMapping("/findClinic")     //查询医院基本信息
+    @PostMapping("/patient/findClinic")     //查询医院基本信息
     public UnifyReponse findClinic(@RequestParam("name")String name){
         ClinicInfo returnData = clinicMessageRepository.findClinicByName(name);
         UnifyReponse<ClinicInfo> response = new UnifyReponse<>();
         if(returnData != null) {
             response = new UnifyReponse(1, "success", returnData);
         }else{
-            response = new UnifyReponse(0, "faile");
+            response = new UnifyReponse(0, "fail");
         }
         return response;
     }
