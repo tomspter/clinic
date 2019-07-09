@@ -85,7 +85,7 @@ public class DepartmentController {
         if(consultingDoctors != null) {
             response = new UnifyReponse(1, "success", consultingDoctors);
         }else{
-            response = new UnifyReponse(0, "faile");
+            response = new UnifyReponse(0, "fail");
         }
         return response;
     }
