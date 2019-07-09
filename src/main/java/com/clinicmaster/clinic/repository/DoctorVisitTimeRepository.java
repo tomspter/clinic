@@ -19,7 +19,7 @@ public interface DoctorVisitTimeRepository extends JpaRepository<DoctorVisitTime
     int findAmountById(@Param("visittimeId") String visittimeId);
     @Transactional
     @Modifying(clearAutomatically = true)
-    @Query("update DoctorVisitTime dv set dv.status = 1,dv.totalAmount = totalAmount+1, dv.amount = amount-1 where dv.id = ?1")
+    @Query("update DoctorVisitTime dv set dv.totalAmount = totalAmount+1, dv.amount = amount-1 where dv.id = ?1")
     int updateOnStatus(String visittimeId);
 
     @Transactional
