@@ -13,7 +13,6 @@ import javax.persistence.Id;
 @Getter
 public class DepartmentChild {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     private int parentId;
     private String childName;

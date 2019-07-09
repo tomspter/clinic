@@ -3,6 +3,7 @@ package com.clinicmaster.clinic.domain;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -12,6 +13,7 @@ import java.sql.Timestamp;
 @Entity
 @Builder
 @AllArgsConstructor
+@NoArgsConstructor
 public class Appointment {
 
     @Id
@@ -19,7 +21,7 @@ public class Appointment {
 
     private String patientId;
 
-    private Timestamp visittimeId;
+    private String visittimeId;
 
     private Integer status;
 }

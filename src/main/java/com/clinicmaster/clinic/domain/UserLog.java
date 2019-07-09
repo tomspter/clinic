@@ -12,18 +12,12 @@ import java.sql.Timestamp;
 @Entity
 @Builder
 @AllArgsConstructor
-public class RegisterZ {
+public class UserLog {
 
     @Id
-    private String uuid;
+    private Integer id;
 
-    private String patientId;
+    private Integer userId;
 
-    private Integer departmentchildId;
-
-    private Timestamp registerTime;
-
-    private Integer registerStatus;
-
-    private Timestamp insertTime;
+    private Timestamp loginTime;
 }

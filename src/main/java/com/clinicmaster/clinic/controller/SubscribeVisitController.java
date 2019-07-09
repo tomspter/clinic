@@ -27,7 +27,7 @@ public class SubscribeVisitController {
     public UnifyReponse subscribeVisitTime(@RequestParam("visittime_id")String visittimeId, @RequestParam("register_id")String registerId){
         int result = doctorVisitTimeRepository.findAmountById(visittimeId);     //查询余量
         UnifyReponse<List<DoctorVisitTime>> response = new UnifyReponse<>();
-        int dottorId = doctorVisitTimeRepository.findById(visittimeId);
+        int dottorId = doctorVisitTimeRepository.findByIdS(visittimeId);
         if(result>0){
             doctorVisitTimeRepository.updateOnStatus(visittimeId);      //doctorvisttime表中status、totalamount、amount的更改
             doctorRepository.updateTotalamount(dottorId);        //doctor表中的totalamount更改
@@ -35,7 +35,7 @@ public class SubscribeVisitController {
             response = new UnifyReponse(1, "success");
         }else{
             doctorVisitTimeRepository.updateOnStatusF(visittimeId);      //doctorvisttime表中status的更改
-            response = new UnifyReponse(0, "fail");
+            response = new UnifyReponse(0, "error");
         }
         return response;
     }
@@ -45,14 +45,14 @@ public class SubscribeVisitController {
     public UnifyReponse unSubscribeVisitTime(@RequestParam("register_id")String registerId){
         String visittimeId =registerRepository.findVisittimeId(registerId);        //根据预约的uuid查询visittimeid
         UnifyReponse<List<DoctorVisitTime>> response = new UnifyReponse<>();
-        int doctorId = doctorVisitTimeRepository.findById(visittimeId);
+        int doctorId = doctorVisitTimeRepository.findByIdS(visittimeId);
         if(visittimeId != null){
             doctorVisitTimeRepository.updateOffStatus(visittimeId);     //doctorvisittime表中status、totalamount、amount更改
             doctorRepository.updateOffAmount(doctorId);      //doctor中totalamount更改
             registerRepository.updateOffStatus(registerId);      //register中status更改
             response = new UnifyReponse(1, "success");
         }else{
-            response = new UnifyReponse(0, "fail");
+            response = new UnifyReponse(0, "error");
         }
         return response;
     }

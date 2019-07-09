@@ -1,6 +1,5 @@
 package com.clinicmaster.clinic.domain;
 
-
 import lombok.Data;
 
 import javax.persistence.Entity;
@@ -8,16 +7,14 @@ import javax.persistence.Id;
 
 @Data
 @Entity
-public class DepartmentChildZ {
+public class User {
 
     @Id
     private Integer id;
 
-    private Integer parentId;
+    private String userName;
 
-    private String childName;
+    private String passWord;
 
-    private Integer doctorId;
-
-    private Integer count;
+    private String category;
 }

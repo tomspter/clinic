@@ -1,12 +1,8 @@
 package com.clinicmaster.clinic.controller;
 
-import com.aliyuncs.exceptions.ClientException;
 import com.clinicmaster.clinic.constant.UnifyReponse;
-import com.clinicmaster.clinic.domain.DoctorVisitTimeZ;
-import com.clinicmaster.clinic.repository.DoctorVisitTimeRepositoryZ;
-import com.clinicmaster.clinic.utils.SmsUtils;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiImplicitParam;
+import com.clinicmaster.clinic.domain.DoctorVisitTime;
+import com.clinicmaster.clinic.repository.DoctorVisitTimeRepository;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,22 +19,30 @@ import java.util.UUID;
 public class DoAppointmentController {
 
     @Autowired
-    private DoctorVisitTimeRepositoryZ doctorVisitTimeRepositoryZ;
+    private DoctorVisitTimeRepository doctorVisitTimeRepository;
 
 
-    @ApiOperation("新增预约")
+    @ApiOperation("发布出诊时间")
     @PostMapping("/clinic/putAppointment")
     public UnifyReponse putAppointment(@RequestParam("visit_time") Timestamp visitTime,
-                                       @RequestParam("doctor_id") Integer doctorId) {
+                                       @RequestParam("doctor_id") Integer doctorId,
+                                       @RequestParam("total_amount") Integer totalAmount) {
 
         try {
-            DoctorVisitTimeZ doctorVisittimeZ = new DoctorVisitTimeZ();
-            doctorVisittimeZ.setId(UUID.randomUUID().toString().replace("-", "").toLowerCase());
-            doctorVisittimeZ.setVisitTime(visitTime);
-            doctorVisittimeZ.setDoctorId(doctorId);
-            doctorVisittimeZ.setAmount(0);
-            doctorVisittimeZ.setStatus(1);
-            doctorVisitTimeRepositoryZ.saveAndFlush(doctorVisittimeZ);
+
+            if (doctorVisitTimeRepository.findByDoctorIdAndVisitTime(doctorId, visitTime).isPresent()) {
+                return new UnifyReponse(0, "error");
+            } else {
+                DoctorVisitTime doctorVisittime = DoctorVisitTime.builder()
+                        .id(UUID.randomUUID().toString().replace("-", "").toLowerCase())
+                        .visitTime(visitTime)
+                        .doctorId(doctorId)
+                        .amount(0)
+                        .status(1)
+                        .totalAmount(totalAmount)
+                        .build();
+                doctorVisitTimeRepository.saveAndFlush(doctorVisittime);
+            }
         } catch (Exception e) {
             e.printStackTrace();
             return new UnifyReponse(0, "error");
@@ -47,21 +51,24 @@ public class DoAppointmentController {
         return new UnifyReponse(1, "success");
     }
 
-
-    @ApiOperation("修改预约")
+    @ApiOperation("修改出诊时间")
     @PostMapping("/clinic/modifyAppointment")
     public UnifyReponse modifyAppointment(@RequestParam("visit_time") Timestamp visitTime,
                                           @RequestParam("doctor_id") Integer doctorId,
+                                          @RequestParam("total_amount") Integer totalAmount,
                                           @RequestParam("id") String id) {
 
         try {
-            Optional<DoctorVisitTimeZ> doctorVisitTime = doctorVisitTimeRepositoryZ.findById(id);
+            Optional<DoctorVisitTime> doctorVisitTime = doctorVisitTimeRepository.findById(id);
 
             if (doctorVisitTime.isPresent()) {
-                DoctorVisitTimeZ doctorVisitTimeZM = doctorVisitTime.get();
-                doctorVisitTimeZM.setVisitTime(visitTime);
-                doctorVisitTimeZM.setDoctorId(doctorId);
-                doctorVisitTimeRepositoryZ.saveAndFlush(doctorVisitTimeZM);
+                DoctorVisitTime doctorVisittime = DoctorVisitTime.builder()
+                        .id(id)
+                        .visitTime(visitTime)
+                        .doctorId(doctorId)
+                        .totalAmount(totalAmount)
+                        .build();
+                doctorVisitTimeRepository.saveAndFlush(doctorVisittime);
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -77,7 +84,7 @@ public class DoAppointmentController {
 
         try {
 
-            doctorVisitTimeRepositoryZ.deleteById(id);
+            doctorVisitTimeRepository.deleteById(id);
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -87,20 +94,4 @@ public class DoAppointmentController {
         return new UnifyReponse(1, "success");
     }
 
-
-    @ApiOperation("获取短信验证码")
-    @ApiImplicitParam(name = "tel",value = "电话号码",required = true,dataType = "String")
-    @PostMapping("/smsService")
-    public UnifyReponse smsService(@RequestParam("tel") String tel){
-        String code= String.valueOf((int) ((Math.random()*9+1)*1000));
-        try {
-            SmsUtils.sendSms(tel,code);
-        } catch (ClientException e) {
-            e.printStackTrace();
-            return new UnifyReponse(0, "error");
-        }
-
-        return new UnifyReponse(1, "success",code);
-
-    }
 }

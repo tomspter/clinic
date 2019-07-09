@@ -1,10 +1,7 @@
 package com.clinicmaster.clinic.domain;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -19,9 +16,10 @@ import java.sql.Timestamp;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
+@Builder
 public class DoctorVisitTime {
+
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private String id;
     private int doctorId;
     @JsonFormat(pattern="yyyy-MM-dd hh:MM:ss",timezone="GMT+8")

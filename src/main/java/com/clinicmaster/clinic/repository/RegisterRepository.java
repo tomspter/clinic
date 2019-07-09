@@ -8,7 +8,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.transaction.annotation.Transactional;
 
-public interface RegisterRepository extends JpaRepository<Register, Long> {
+public interface RegisterRepository extends JpaRepository<Register, String> {
     @Transactional
     @Modifying(clearAutomatically = true)
     @Query("update Register r set r.registerStatus = 1 where r.id = ?1")
