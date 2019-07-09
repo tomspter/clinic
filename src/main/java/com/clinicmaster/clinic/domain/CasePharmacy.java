@@ -14,7 +14,7 @@ import javax.persistence.Id;
 public class CasePharmacy {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private String uuid;
+    private String id;
     private int patientId;
     private int doctorId;
     private int medicineId;

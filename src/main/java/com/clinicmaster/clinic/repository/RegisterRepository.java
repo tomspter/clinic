@@ -8,11 +8,8 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.transaction.annotation.Transactional;
 
-public interface RegisterRepository extends JpaRepository<Register, Long> {
-    @Transactional
-    @Modifying(clearAutomatically = true)
-    @Query("update Register r set r.registerStatus = 1 where r.id = ?1")
-    int updateOnStatus(String registerId);
+public interface RegisterRepository extends JpaRepository<Register, String> {
+
 
     @Query(value = "select visit_time_id from register where id = :registerId", nativeQuery = true)
     String findVisittimeId(@Param("registerId") String registerId);

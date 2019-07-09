@@ -2,11 +2,11 @@ package com.clinicmaster.clinic.controller;
 
 import com.clinicmaster.clinic.constant.UnifyReponse;
 import com.clinicmaster.clinic.domain.ClinicStaff;
-import com.clinicmaster.clinic.domain.DepartmentChildZ;
+import com.clinicmaster.clinic.domain.DepartmentChild;
 import com.clinicmaster.clinic.domain.DepartmentParentZ;
 import com.clinicmaster.clinic.domain.MedicineZ;
 import com.clinicmaster.clinic.repository.ClinicStaffRepository;
-import com.clinicmaster.clinic.repository.DepartmentChildRepositoryZ;
+import com.clinicmaster.clinic.repository.DepartmentChildRepository;
 import com.clinicmaster.clinic.repository.DepartmentParentRepositoryZ;
 import com.clinicmaster.clinic.repository.MedicineRepositoryZ;
 import com.clinicmaster.clinic.utils.ExcelUtil;
@@ -36,7 +36,7 @@ public class DoClinicExcelController {
     private DepartmentParentRepositoryZ departmentParentRepositoryZ;
 
     @Autowired
-    private DepartmentChildRepositoryZ departmentChildRepositoryZ;
+    private DepartmentChildRepository departmentChildRepositoryZ;
 
     @ApiOperation("上传员工Excel")
     @PostMapping("/clinic/importExcel/clinicStaffExcel")
@@ -105,7 +105,7 @@ public class DoClinicExcelController {
         List<DepartmentParentZ> departmentParentZS = ExcelUtil.doDepartmentParentExcel(parentfile);
         departmentParentRepositoryZ.saveAll(departmentParentZS);
 
-        List<DepartmentChildZ> departmentChildZS = ExcelUtil.doDepartmentChildExcel(childfile);
+        List<DepartmentChild> departmentChildZS = ExcelUtil.doDepartmentChildExcel(childfile);
         departmentChildRepositoryZ.saveAll(departmentChildZS);
 
         return new UnifyReponse(1, "success");

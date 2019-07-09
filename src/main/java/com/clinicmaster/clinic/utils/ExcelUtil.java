@@ -1,7 +1,7 @@
 package com.clinicmaster.clinic.utils;
 
 import com.clinicmaster.clinic.domain.ClinicStaff;
-import com.clinicmaster.clinic.domain.DepartmentChildZ;
+import com.clinicmaster.clinic.domain.DepartmentChild;
 import com.clinicmaster.clinic.domain.DepartmentParentZ;
 import com.clinicmaster.clinic.domain.MedicineZ;
 import org.apache.poi.xssf.usermodel.XSSFRow;
@@ -133,7 +133,7 @@ public class ExcelUtil {
 
     public static List doDepartmentChildExcel(MultipartFile file) throws IOException {
 
-        List<DepartmentChildZ> departmentChildrenZS =new ArrayList<>();
+        List<DepartmentChild> departmentChildrenZS =new ArrayList<>();
 
 
         XSSFWorkbook workbook=new XSSFWorkbook(file.getInputStream());
@@ -146,10 +146,10 @@ public class ExcelUtil {
 
             int rows =sheet.getPhysicalNumberOfRows();
 
-            DepartmentChildZ departmentChildZ;
+            DepartmentChild departmentChildZ;
 
             for (int rowsNum = 1; rowsNum < rows; rowsNum++) {
-                departmentChildZ =new DepartmentChildZ();
+                departmentChildZ =new DepartmentChild();
 
                 XSSFRow xssfRow=sheet.getRow(rowsNum);
                 departmentChildZ.setId(Integer.valueOf(xssfRow.getCell(0).toString()));

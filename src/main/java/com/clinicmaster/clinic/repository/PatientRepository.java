@@ -7,7 +7,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.transaction.annotation.Transactional;
 
-public interface PatientRepository extends JpaRepository<PatientLogin, Long> {
+public interface PatientRepository extends JpaRepository<PatientLogin, String> {
     @Query(value = "select name from patient_login where id = :id", nativeQuery = true)
      String findName(@Param("id") String id);
 

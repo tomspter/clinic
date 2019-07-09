@@ -1,6 +1,5 @@
 package com.clinicmaster.clinic.controller;
 
-import ch.qos.logback.core.net.SyslogOutputStream;
 import com.clinicmaster.clinic.constant.UnifyReponse;
 import com.clinicmaster.clinic.domain.DoctorVisitTime;
 import com.clinicmaster.clinic.domain.PatientLog;
@@ -15,7 +14,6 @@ import org.springframework.web.bind.annotation.RestController;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
-import java.util.UUID;
 
 @RestController
 public class LoginController {
