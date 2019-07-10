@@ -7,18 +7,18 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import java.math.BigDecimal;
 
 @Entity
 @Getter
 @Setter
 public class CasePharmacy {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private String id;
-    private int patientId;
+    private String patientId;
     private int doctorId;
     private int medicineId;
     private int medicineNum;
-    private int totalNum;
+    private BigDecimal totalNum;
     private int moneyStatus;
 }

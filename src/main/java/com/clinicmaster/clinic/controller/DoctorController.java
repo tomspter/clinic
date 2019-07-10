@@ -26,7 +26,7 @@ public class DoctorController {
                                    @RequestParam("sort")String sort, @RequestParam("department_id") int departmentId){
         Pageable pageable = PageRequest.of(pageNum - 1, pageLimit, Sort.Direction.ASC, sort);
         List<Doctor> doctors = doctorRepository.findAllByDepartmentId(departmentId);
-        UnifyReponse<List<Doctor>> response = new UnifyReponse<>();
+        UnifyReponse<List<Doctor>> response ;
         if(doctors != null) {
             response = new UnifyReponse(1, "success", doctors);
         }else{

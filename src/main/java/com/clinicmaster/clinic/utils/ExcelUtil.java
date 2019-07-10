@@ -2,8 +2,8 @@ package com.clinicmaster.clinic.utils;
 
 import com.clinicmaster.clinic.domain.ClinicStaff;
 import com.clinicmaster.clinic.domain.DepartmentChild;
-import com.clinicmaster.clinic.domain.DepartmentParentZ;
-import com.clinicmaster.clinic.domain.MedicineZ;
+import com.clinicmaster.clinic.domain.DepartmentParent;
+import com.clinicmaster.clinic.domain.Medicine;
 import org.apache.poi.xssf.usermodel.XSSFRow;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
@@ -62,9 +62,9 @@ public class ExcelUtil {
 
 
 
-    public static List<MedicineZ> doMedicineExcel(MultipartFile file) throws IOException {
+    public static List<Medicine> doMedicineExcel(MultipartFile file) throws IOException {
 
-        List<MedicineZ> medicineZS =new ArrayList<>();
+        List<Medicine> medicineZS =new ArrayList<>();
 
         XSSFWorkbook workbook=new XSSFWorkbook(file.getInputStream());
 
@@ -75,19 +75,19 @@ public class ExcelUtil {
 
             int rows =sheet.getPhysicalNumberOfRows();
 
-            MedicineZ medicineZ;
+            Medicine medicine;
 
             for (int rowsNum = 1; rowsNum < rows; rowsNum++) {
-                medicineZ =new MedicineZ();
+                medicine =new Medicine();
 
                 XSSFRow xssfRow=sheet.getRow(rowsNum);
-                medicineZ.setId(Integer.valueOf(xssfRow.getCell(0).toString()));
-                medicineZ.setName(xssfRow.getCell(1).toString());
-                medicineZ.setTotalNum(Integer.valueOf(xssfRow.getCell(3).toString()));
-                medicineZ.setRestNum(Integer.valueOf(xssfRow.getCell(3).toString()));
-                medicineZ.setMoney(new BigDecimal(xssfRow.getCell(3).toString()));
+                medicine.setId(Integer.valueOf(xssfRow.getCell(0).toString()));
+                medicine.setName(xssfRow.getCell(1).toString());
+                medicine.setTotalNum(Integer.valueOf(xssfRow.getCell(3).toString()));
+                medicine.setRestNum(Integer.valueOf(xssfRow.getCell(3).toString()));
+                medicine.setMoney(new BigDecimal(xssfRow.getCell(3).toString()));
 
-                medicineZS.add(medicineZ);
+                medicineZS.add(medicine);
 
             }
         }
@@ -99,7 +99,7 @@ public class ExcelUtil {
 
     public static List doDepartmentParentExcel(MultipartFile file) throws IOException {
 
-        List<DepartmentParentZ> departmentParentZS =new ArrayList<>();
+        List<DepartmentParent> departmentParentZS =new ArrayList<>();
 
         XSSFWorkbook workbook=new XSSFWorkbook(file.getInputStream());
 
@@ -111,18 +111,18 @@ public class ExcelUtil {
 
             int rows =sheet.getPhysicalNumberOfRows();
 
-            DepartmentParentZ departmentParentZ;
+            DepartmentParent departmentParent;
 
             for (int rowsNum = 1; rowsNum < rows; rowsNum++) {
-                departmentParentZ =new DepartmentParentZ();
+                departmentParent =new DepartmentParent();
 
                 XSSFRow xssfRow=sheet.getRow(rowsNum);
-                departmentParentZ.setId(Integer.valueOf(xssfRow.getCell(0).toString()));
-                departmentParentZ.setParentName(xssfRow.getCell(1).toString());
-                departmentParentZ.setClinicId(Integer.valueOf(xssfRow.getCell(2).toString()));
-                departmentParentZ.setChildId(Integer.valueOf(xssfRow.getCell(3).toString()));
+                departmentParent.setId(Integer.valueOf(xssfRow.getCell(0).toString()));
+                departmentParent.setParentName(xssfRow.getCell(1).toString());
+                departmentParent.setClinicId(Integer.valueOf(xssfRow.getCell(2).toString()));
+//                departmentParent.setChildId(Integer.valueOf(xssfRow.getCell(3).toString()));
 
-                departmentParentZS.add(departmentParentZ);
+                departmentParentZS.add(departmentParent);
 
             }
         }

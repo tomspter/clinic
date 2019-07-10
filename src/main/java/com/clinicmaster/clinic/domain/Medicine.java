@@ -6,6 +6,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import java.math.BigDecimal;
 
 
 @Entity
@@ -15,10 +16,9 @@ import javax.persistence.Id;
 @AllArgsConstructor
 public class Medicine {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     private String name;
     private int totalNum;
     private int restNum;
-    private int money;
+    private BigDecimal money;
 }

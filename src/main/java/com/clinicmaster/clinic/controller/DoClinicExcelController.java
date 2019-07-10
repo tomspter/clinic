@@ -3,12 +3,12 @@ package com.clinicmaster.clinic.controller;
 import com.clinicmaster.clinic.constant.UnifyReponse;
 import com.clinicmaster.clinic.domain.ClinicStaff;
 import com.clinicmaster.clinic.domain.DepartmentChild;
-import com.clinicmaster.clinic.domain.DepartmentParentZ;
-import com.clinicmaster.clinic.domain.MedicineZ;
+import com.clinicmaster.clinic.domain.DepartmentParent;
+import com.clinicmaster.clinic.domain.Medicine;
 import com.clinicmaster.clinic.repository.ClinicStaffRepository;
 import com.clinicmaster.clinic.repository.DepartmentChildRepository;
-import com.clinicmaster.clinic.repository.DepartmentParentRepositoryZ;
-import com.clinicmaster.clinic.repository.MedicineRepositoryZ;
+import com.clinicmaster.clinic.repository.DepartmentParentRepository;
+import com.clinicmaster.clinic.repository.MedicineRepository;
 import com.clinicmaster.clinic.utils.ExcelUtil;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
@@ -23,17 +23,16 @@ import java.util.List;
 
 @RestController
 @Slf4j
-//@RequestMapping("/clinic/importExcel")
 public class DoClinicExcelController {
 
     @Autowired
     private ClinicStaffRepository clinicStaffRepository;
 
     @Autowired
-    private MedicineRepositoryZ medicineRepositoryZ;
+    private MedicineRepository medicineRepository;
 
     @Autowired
-    private DepartmentParentRepositoryZ departmentParentRepositoryZ;
+    private DepartmentParentRepository departmentParentRepository;
 
     @Autowired
     private DepartmentChildRepository departmentChildRepositoryZ;
@@ -74,9 +73,9 @@ public class DoClinicExcelController {
             return new UnifyReponse(0, "上传文件格式错误，请上传后缀为.xls或.xlsx的文件");
         }
 
-        List<MedicineZ> medicineZS = ExcelUtil.doMedicineExcel(file);
+        List<Medicine> medicineZS = ExcelUtil.doMedicineExcel(file);
 
-        medicineRepositoryZ.saveAll(medicineZS);
+        medicineRepository.saveAll(medicineZS);
 
         return new UnifyReponse(1, "success");
     }
@@ -102,8 +101,8 @@ public class DoClinicExcelController {
             return new UnifyReponse(0, "上传文件格式错误，请上传后缀为.xls或.xlsx的文件");
         }
 
-        List<DepartmentParentZ> departmentParentZS = ExcelUtil.doDepartmentParentExcel(parentfile);
-        departmentParentRepositoryZ.saveAll(departmentParentZS);
+        List<DepartmentParent> departmentParentZS = ExcelUtil.doDepartmentParentExcel(parentfile);
+        departmentParentRepository.saveAll(departmentParentZS);
 
         List<DepartmentChild> departmentChildZS = ExcelUtil.doDepartmentChildExcel(childfile);
         departmentChildRepositoryZ.saveAll(departmentChildZS);

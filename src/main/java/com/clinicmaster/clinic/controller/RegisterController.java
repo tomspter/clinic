@@ -200,11 +200,11 @@ public class RegisterController {
         if (patientLoginOptional.isPresent()) {
             String name = patientLoginOptional.get().getName();
 
-            log.info("name{}", name);
+            log.info("name:{}", name);
 
             //TODO 音频转换
 
-            WebTTs.kedaTTS(name);
+//            WebTTs.kedaTTS(name);
         }
         return new UnifyReponse(1, "success");
     }

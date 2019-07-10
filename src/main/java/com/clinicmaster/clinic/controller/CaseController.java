@@ -1,10 +1,12 @@
 package com.clinicmaster.clinic.controller;
 
 import com.clinicmaster.clinic.constant.UnifyReponse;
-import com.clinicmaster.clinic.domain.CasePharmacyZ;
-import com.clinicmaster.clinic.repository.CasePharmacyRepositoryZ;
+import com.clinicmaster.clinic.domain.CasePharmacy;
+import com.clinicmaster.clinic.domain.MedicineGet;
+import com.clinicmaster.clinic.repository.CasePharmacyRepository;
 import com.clinicmaster.clinic.repository.CaseTransfusionRepository;
-import com.clinicmaster.clinic.repository.MedicineRepositoryZ;
+import com.clinicmaster.clinic.repository.MedicineGetRepository;
+import com.clinicmaster.clinic.repository.MedicineRepository;
 import com.clinicmaster.clinic.service.CaseService;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
@@ -24,14 +26,7 @@ public class CaseController {
     private CaseService caseService;
 
     @Autowired
-    private CasePharmacyRepositoryZ casePharmacyRepositoryZ;
-
-    @Autowired
-    private CaseTransfusionRepository caseTransfusionRepository;
-
-    @Autowired
-    private MedicineRepositoryZ medicineRepositoryZ;
-
+    private CasePharmacyRepository casePharmacyRepository;
 
     @ApiOperation("写入取药病历")
     @PostMapping("/clinic/writeCasePharmacy")
@@ -44,6 +39,7 @@ public class CaseController {
 
         try {
             caseService.writeCase(patientId,medicineId,medicineNum,type,httpServletRequest);
+
         }catch (Exception e){
             e.printStackTrace();
             return new UnifyReponse(0, "error");
@@ -57,10 +53,10 @@ public class CaseController {
     @PostMapping("/clinic/getCaseForPharmacy")
     public UnifyReponse getCaseForPharmacy(){
 
-        List<CasePharmacyZ> casePharmacies = null;
+        List<CasePharmacy> casePharmacies ;
 
         try {
-            casePharmacies= casePharmacyRepositoryZ.findByMonryStatus(1);
+            casePharmacies= casePharmacyRepository.findByMoneyStatus(1);
         }catch (Exception e){
             e.printStackTrace();
             return new UnifyReponse(0,"error");

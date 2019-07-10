@@ -3,7 +3,7 @@ package com.clinicmaster.clinic.domain;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.util.List;
+import java.math.BigDecimal;
 
 
 @Getter
@@ -12,5 +12,5 @@ public class MedicinePayMent {
     private int medcineId;
     private String medicineName;
     private int medicineMum;
-    private int money;
+    private BigDecimal money;
 }

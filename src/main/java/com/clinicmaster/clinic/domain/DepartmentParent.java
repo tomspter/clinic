@@ -18,7 +18,6 @@ import java.util.List;
 @AllArgsConstructor
 public class DepartmentParent{
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     private String parentName;
     private int clinicId;

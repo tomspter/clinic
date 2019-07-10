@@ -23,5 +23,7 @@ public class CaseTransfusion {
 
     private BigDecimal totalNum;
 
-    private Integer monryStatus;
+    private Integer moneyStatus;
+
+    private Integer bedId;
 }

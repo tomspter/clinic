@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -22,11 +23,11 @@ public class MedicineController {
 
     @ApiOperation("患者支付费用")
     @PostMapping("/patient/patientPayment")
-    public UnifyReponse patientPayment(@RequestParam("patient_id")int patientId){
+    public UnifyReponse patientPayment(@RequestParam("patient_id")String patientId){
         try {
             PayMent payMent = new PayMent();
             List<MedicinePayMent> list = new ArrayList<>();
-            int totalMoney = 0;
+            BigDecimal totalMoney = new BigDecimal(0);
             List<CasePharmacy> casePharmacies = casePharmacyRepository.findAllByPatientId(patientId);
             for(CasePharmacy casePharmacy : casePharmacies){
                 MedicinePayMent medicinePayMent = new MedicinePayMent();
@@ -37,13 +38,13 @@ public class MedicineController {
                 medicinePayMent.setMedicineMum(medicineNum);
                 Medicine medicine = medicineRepository.findById(medicineId);
                 medicinePayMent.setMedicineName(medicine.getName());
-                medicinePayMent.setMoney(medicine.getMoney()*medicineNum);
-                totalMoney += medicinePayMent.getMoney();
+                medicinePayMent.setMoney(medicine.getMoney().multiply(BigDecimal.valueOf(medicineNum)));
+                totalMoney = totalMoney.add(medicinePayMent.getMoney());
                 list.add(medicinePayMent);
             }
             payMent.setPayMents(list);
             payMent.setTotalMoney(totalMoney);
-            UnifyReponse<List<Doctor>> response = new UnifyReponse<>();
+            UnifyReponse<List<Doctor>> response ;
             int[] resultId = casePharmacyRepository.findIdByPatientId(patientId);
             for(int id : resultId ){
                 casePharmacyRepository.updateOnStatus(patientId);
